@@ -3,12 +3,14 @@ IMAGES_DIR = 'img'
 IMAGE_FILES = DIAGRAMS.pathmap("#{IMAGES_DIR}/%n.png")
 
 rule '.png' => lambda{ |png| find_diagram(png) } do |t|
-    sh "dia -n --export=#{t.name} #{t.source}"
+    puts "Transforming #{t.name} to #{t.source}"
+    sh "dia -n --export=#{t.name} #{t.source}" 
 end
 
 task :default => :images
 
-task :images => [IMAGES_DIR, IMAGE_FILES]
+task :images => IMAGES_DIR
+task :images => IMAGE_FILES
 
 directory IMAGES_DIR
 
